@@ -1,3 +1,3 @@
 def call(){
-    sh "docker run -d --name youtube1 -p 8211:3000 krisoru/youtube:latest"
+    sh "docker run -d --name youtube1 -p 8211:3000 ${dockerHubUsername}/${imageName}:latest"
 }
