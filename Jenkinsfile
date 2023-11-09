@@ -9,7 +9,7 @@ pipeline{
     parameters {
         choice(name: 'action', choices: 'create\ndelete', description: 'Select create or destroy.')
         
-        string(name: 'DOCKER_HUB_USERNAME', defaultValue: 'sevenajay', description: 'Docker Hub Username')
+        string(name: 'DOCKER_HUB_USERNAME', defaultValue: 'krisforu', description: 'Docker Hub Username')
         string(name: 'IMAGE_NAME', defaultValue: 'youtube', description: 'Docker Image Name')
     }
     tools{
@@ -27,7 +27,7 @@ pipeline{
         }
         stage('checkout from Git'){
             steps{
-                checkoutGit('https://github.com/Aj7Ay/Youtube-clone-app.git', 'main')
+                checkoutGit('https://github.com/krisforu/Youtube-clone-app.git', 'main')
             }
         }
         stage('sonarqube Analysis'){
@@ -40,7 +40,7 @@ pipeline{
         when { expression { params.action == 'create'}}    
             steps{
                 script{
-                    def credentialsId = 'Sonar-token'
+                    def credentialsId = 'sonartoken'
                     qualityGate(credentialsId)
                 }
             }
@@ -59,7 +59,7 @@ pipeline{
         }
         stage('OWASP FS SCAN') {
             steps {
-                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DP-Check'
+                dependencyCheck additionalArguments: '--scan ./ --disableYarnAudit --disableNodeAudit', odcInstallation: 'DependencyCheck'
                 dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
             }
         }
