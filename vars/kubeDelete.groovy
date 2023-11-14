@@ -1,5 +1,5 @@
 def call() {
-    withKubeConfig(caCertificate: '', clusterName: '', contextName: ${KUBERNETES_SERVER_URL}, credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: ${CONTEXT_NAME} ) {
+    withKubeConfig(caCertificate: '', clusterName: '', contextName: ${KubernetesServerUrl}, credentialsId: 'k8s', namespace: '', restrictKubeConfigAccess: false, serverUrl: ${KubernetesContextName} ) {
         sh "kubectl delete -f Kubernetes/Kubernetes/deployment.yml"
     }
 }
